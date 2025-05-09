@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CinemaApp.UI.UserForms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -11,17 +12,34 @@ namespace CinemaApp.UI
     {
         public static void FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (sender.GetType() == typeof(LandingForm))
+            if (sender.GetType() == typeof(LandingForm) || sender.GetType() == typeof(UserDashboardForm))
             {
-                // Exit the application when LandingForm is closed
                 Application.Exit();
             }
             else if (e.CloseReason == CloseReason.UserClosing)
             {
-                // Cancel close event and hide the form instead of closing it
                 e.Cancel = true;
-                // Hide the current form
                 ((Form)sender).Hide();
+            }
+        }
+
+        public static void ButtonHoverEnter(object sender, EventArgs e)
+        {
+            if (sender is Button button)
+            {
+                button.BackColor = Design.Colors.Tertiary;
+                button.ForeColor = Design.Colors.Primary;
+                button.Cursor = Cursors.Hand;
+            }
+        }
+
+        public static void ButtonHoverLeave(object sender, EventArgs e)
+        {
+            if (sender is Button button)
+            {
+                button.BackColor = Design.Colors.Primary;
+                button.ForeColor = Design.Colors.Tertiary;
+                button.Cursor = Cursors.Default;
             }
         }
     }

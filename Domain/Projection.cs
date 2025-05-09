@@ -15,5 +15,10 @@ namespace CinemaApp.Domain
         public int HallId { get; set; }  
         public Hall Hall { get; set; }  
         public List<Ticket> Tickets { get; set; }
+
+        public override string ToString()
+        {
+            return $"Movie: {Movie.Name}, Date: {Date}, Hall: {Hall.Name}";
+        }
     }
 }

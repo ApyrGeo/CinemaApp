@@ -1,6 +1,7 @@
 ﻿using CinemaApp.Domain;
 using CinemaApp.Repository;
 using Microsoft.AspNetCore.Identity;
+using CinemaApp.Service.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,11 @@ using System.Threading.Tasks;
 
 namespace CinemaApp.Service
 {
-    public class AdminService(IAdminRepository adminRepository) : IAdminService
+    public class AdminService(IAdminRepository adminRepository, Notifier notifier) : IAdminService
     {
         private readonly IAdminRepository _adminRepository = adminRepository;
         private readonly PasswordHasher<Admin> _passwordHasher = new();
+        private readonly Notifier _notifier = notifier;
 
         public async Task<Admin?> LoginAsync(string username, string password)
         {
@@ -28,6 +30,11 @@ namespace CinemaApp.Service
         public Task RegisterAsync(string username, string password)
         {
             throw new NotImplementedException();
+        }
+
+        public void UpdateX(User u)
+        {
+            _notifier.Notify(u);
         }
     }
 }

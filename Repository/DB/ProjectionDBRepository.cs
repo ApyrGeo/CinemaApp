@@ -60,7 +60,18 @@ namespace CinemaApp.Repository.DB
         {
             return await _dbContext.Projections
                 .Include(p => p.Hall) 
+                .Include(p => p.Movie)
+
                 .Where(p => p.Hall.CinemaId == cinemaId)
+                .ToListAsync();
+        }
+
+        public Task<List<Seat>> GetAllTakenSeatsFromProjection(int? projectionId)
+        {
+            return _dbContext.Tickets
+                .Include(t => t.Seat)
+                .Where(t => t.ProjectionId == projectionId)
+                .Select(t => t.Seat)
                 .ToListAsync();
         }
     }

@@ -55,5 +55,20 @@ namespace CinemaApp.Repository.DB
                 await _dbContext.SaveChangesAsync();
             }
         }
+
+        public async Task<IEnumerable<Ticket>> GetUserTickets(int id)
+        {
+            var tickets = await _dbContext.Tickets
+             .Include(t => t.User)             
+             .Include(t => t.Projection)     
+                 .ThenInclude(p => p.Movie)
+             .Include(t => t.Projection)
+                 .ThenInclude(p => p.Hall) 
+             .Include(t => t.Seat)              
+             .Where(t => t.UserId == id)
+             .ToListAsync();
+
+            return tickets;
+        }
     }
 }

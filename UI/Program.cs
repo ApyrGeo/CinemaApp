@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using CinemaApp.UI.Manager;
 using Service;
+using CinemaApp.Service.Observer;
 
 namespace CinemaApp.UI
 {
@@ -42,17 +43,22 @@ namespace CinemaApp.UI
             services.AddScoped<ITicketRepository, TicketDBRepository>();
             services.AddScoped<IProjectionRepository, ProjectionDBRepository>();
             services.AddScoped<ICinemaRepository, CinemaDBRepository>();
+            services.AddScoped<ISeatRepository, SeatDBRepository>();
             services.AddScoped<SessionContext>();
 
             // Forms
             services.AddScoped<LoginForm>();
-            services.AddScoped<UserDashboardForm>();
-            services.AddScoped<AdminDashboardForm>();
+            //services.AddScoped<UserDashboardForm>();
+            //services.AddScoped<AdminDashboardForm>();
+            services.AddTransient<UserDashboardForm>();
+            services.AddTransient<AdminDashboardForm>();
+            services.AddScoped<BuyTicketForm>();
             services.AddScoped<LandingForm>();
             services.AddScoped<RegisterForm>();
             ///Add future forms
 
             // Singleton FormManager
+            services.AddSingleton<Notifier>();
             services.AddSingleton<FormManager>();
 
             int cinemaId = 1;

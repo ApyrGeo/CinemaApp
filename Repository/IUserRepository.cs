@@ -11,4 +11,5 @@ namespace CinemaApp.Repository;
 public interface IUserRepository : IRepository<User>
 {
     Task<User?> GetUserByUsernameAsync(string username);
+    
 }

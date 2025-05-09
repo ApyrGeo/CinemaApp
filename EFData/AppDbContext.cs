@@ -33,33 +33,39 @@ public class AppDbContext : DbContext
         // Projection has a foreign key to Movie (MovieId)
         modelBuilder.Entity<Projection>()
             .HasOne(p => p.Movie)            // Projection has one Movie
-            .WithMany()                      // Movie can have many Projections
+            .WithMany(m => m.Projections)    // Movie can have many Projections
             .HasForeignKey(p => p.MovieId)   // Foreign key is MovieId
             .OnDelete(DeleteBehavior.Restrict); // Prevent deletion of Movie if associated Projections exist
 
         // Projection has a foreign key to Hall (HallId)
         modelBuilder.Entity<Projection>()
             .HasOne(p => p.Hall)             // Projection has one Hall
-            .WithMany()                      // Hall can have many Projections
+            .WithMany(h => h.Projections)    // Hall can have many Projections
             .HasForeignKey(p => p.HallId)    // Foreign key is HallId
             .OnDelete(DeleteBehavior.Restrict); // Prevent deletion of Hall if associated Projections exist
 
         // Ticket has a foreign key to User (UserId)
         modelBuilder.Entity<Ticket>()
-            .HasOne(t => t.User)             // Ticket has one User
-            .WithMany()                       // User can have many Tickets
-            .HasForeignKey(t => t.UserId)    // Foreign key is UserId
-            .OnDelete(DeleteBehavior.Restrict); // Prevent deletion of User if associated Tickets exist
+            .HasOne(t => t.User)
+            .WithMany(u => u.Tickets)
+            .HasForeignKey(t => t.UserId);
 
         // Ticket has a foreign key to Projection (ProjectionId)
         modelBuilder.Entity<Ticket>()
-            .HasOne(t => t.Projection)       // Ticket has one Projection
-            .WithMany()                      // Projection can have many Tickets
-            .HasForeignKey(t => t.ProjectionId)  // Foreign key is ProjectionId
-            .OnDelete(DeleteBehavior.Restrict); // Prevent deletion of Projection if associated Tickets exist
+            .HasOne(t => t.Projection)
+            .WithMany(p => p.Tickets)
+            .HasForeignKey(t => t.ProjectionId);
 
+        // Ticket has a foreign key to Seat (SeatId)
+        modelBuilder.Entity<Ticket>()
+            .HasOne(t => t.Seat)
+            .WithMany(s => s.Tickets)
+            .HasForeignKey(t => t.SeatId);
+
+        // Admin Name should be unique
         modelBuilder.Entity<Admin>()
-            .HasIndex(a => a.Name) 
+            .HasIndex(a => a.Name)
             .IsUnique();
     }
+
 }

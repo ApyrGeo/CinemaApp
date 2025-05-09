@@ -9,6 +9,7 @@ namespace CinemaApp.Repository
 {
     public interface IProjectionRepository : IRepository<Projection>
     {
+        Task<List<Seat>> GetAllTakenSeatsFromProjection(int? projectionId);
         Task<List<Projection>> GetProjectionsByCinemaIdAsync(int cinemaId);
     }
 }
