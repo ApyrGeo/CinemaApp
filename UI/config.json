@@ -1,0 +1,6 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=DESKTOP-CN2VL3C\\MSSQLSERVER01;Initial Catalog=Cinema;Integrated Security=True;Encrypt=False"
+
+  }
+}
