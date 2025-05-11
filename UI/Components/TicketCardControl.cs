@@ -34,6 +34,7 @@ namespace CinemaApp.UI.Components
         }
         public int Id { get; internal set; }
         public int SeatId { get; internal set; }
+        public int ProjectionId { get; internal set; }
 
         public TicketCardControl()
         {

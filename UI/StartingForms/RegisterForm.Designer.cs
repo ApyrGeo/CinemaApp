@@ -40,6 +40,7 @@ partial class RegisterForm
         // 
         // button1
         // 
+        button1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 238);
         button1.ImeMode = ImeMode.NoControl;
         button1.Location = new Point(150, 323);
         button1.Margin = new Padding(4, 3, 4, 3);
@@ -62,7 +63,7 @@ partial class RegisterForm
         // 
         // label3
         // 
-        label3.Font = new Font("Century Gothic", 12F);
+        label3.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
         label3.ImeMode = ImeMode.NoControl;
         label3.Location = new Point(30, 191);
         label3.Margin = new Padding(4, 0, 4, 0);
@@ -83,7 +84,7 @@ partial class RegisterForm
         // 
         // label2
         // 
-        label2.Font = new Font("Century Gothic", 12F);
+        label2.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
         label2.ImeMode = ImeMode.NoControl;
         label2.Location = new Point(30, 128);
         label2.Margin = new Padding(4, 0, 4, 0);
@@ -116,7 +117,7 @@ partial class RegisterForm
         // 
         // label4
         // 
-        label4.Font = new Font("Century Gothic", 12F);
+        label4.Font = new Font("Century Gothic", 12F, FontStyle.Bold);
         label4.ImeMode = ImeMode.NoControl;
         label4.Location = new Point(30, 249);
         label4.Margin = new Padding(4, 0, 4, 0);
@@ -142,6 +143,7 @@ partial class RegisterForm
         Name = "RegisterForm";
         StartPosition = FormStartPosition.CenterScreen;
         Text = "RegisterForm";
+        Load += RegisterForm_Load;
         ResumeLayout(false);
         PerformLayout();
     }

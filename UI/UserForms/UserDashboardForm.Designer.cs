@@ -86,7 +86,7 @@ partial class UserDashboardForm
         button_view.TabIndex = 7;
         button_view.Text = "View Movies";
         button_view.UseVisualStyleBackColor = true;
-        button_view.Click += button_view_Click;
+        button_view.Click += HandleViewMovies;
         // 
         // button_buy
         // 

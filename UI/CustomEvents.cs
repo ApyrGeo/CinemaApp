@@ -12,7 +12,7 @@ namespace CinemaApp.UI
     {
         public static void FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (sender.GetType() == typeof(LandingForm) || sender.GetType() == typeof(UserDashboardForm))
+            if (sender.GetType() == typeof(LandingForm))
             {
                 Application.Exit();
             }

@@ -37,6 +37,8 @@ public partial class UserDashboardForm : Form, Service.Observer.IObserver<Change
         this._cinemaContext = cinemaContext;
 
         _notifier.Subscribe(this);
+
+        this.FormClosing += (s,e) => { _sessionContext.Clear(); };
     }
 
     public void Update(ChangeEvent data)
@@ -57,8 +59,8 @@ public partial class UserDashboardForm : Form, Service.Observer.IObserver<Change
                         AddTicketToList(ticket);
                     }
                 }
-                
-                
+
+
                 break;
         }
     }
@@ -76,7 +78,8 @@ public partial class UserDashboardForm : Form, Service.Observer.IObserver<Change
                 ProjectionDate = ticket.Projection.Date.ToString("dd/MM/yyyy"),
                 SeatName = ticket.Seat.Name,
                 SeatId = ticket.Seat.Id,
-                HallName = ticket.Projection.Hall.Name
+                HallName = ticket.Projection.Hall.Name,
+                ProjectionId = ticket.Projection.Id
             };
 
             ticketControl.MouseClick += TicketClicked;
@@ -105,13 +108,11 @@ public partial class UserDashboardForm : Form, Service.Observer.IObserver<Change
         label1.ForeColor = Design.Colors.Tertiary;
         panel.BackColor = Design.Colors.Primary;
         panelContainer.BackColor = Design.Colors.Secondary;
-
-
     }
 
     private async void PopulateUserTickets()
     {
-        
+
         var userTickets = await _service.GetUserTickets(_sessionContext.LoggedInUser.Id);
         if (userTickets == null || userTickets.Count == 0)
             return;
@@ -130,14 +131,15 @@ public partial class UserDashboardForm : Form, Service.Observer.IObserver<Change
                     ProjectionDate = ticket.Projection.Date.ToString("dd/MM/yyyy"),
                     SeatName = ticket.Seat.Name,
                     SeatId = ticket.Seat.Id,
-                    HallName = ticket.Projection.Hall.Name
+                    HallName = ticket.Projection.Hall.Name,
+                    ProjectionId = ticket.Projection.Id
                 };
 
                 ticketControl.MouseClick += TicketClicked;
                 panelContainer.Controls.Add(ticketControl);
             }
         }));
-        
+
     }
     public async void TicketClicked(object? sender, MouseEventArgs e)
     {
@@ -152,13 +154,20 @@ public partial class UserDashboardForm : Form, Service.Observer.IObserver<Change
             {
                 var ticketId = ticketControl.Id;
                 var seatId = ticketControl.SeatId;
-                await _service.DeleteTicket(ticketId, seatId);
+                var projectionId = ticketControl.ProjectionId;
+                await _service.DeleteTicket(new Ticket()
+                {
+                    Id = ticketId,
+                    SeatId = seatId,
+                    ProjectionId = projectionId
+                });
+                
 
                 Invoke(new Action(() =>
                 {
                     panelContainer.Controls.Remove(ticketControl);
-                })); 
-                
+                }));
+
                 MessageBox.Show("Ticket deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
@@ -178,12 +187,11 @@ public partial class UserDashboardForm : Form, Service.Observer.IObserver<Change
     private void HandleLogout(object sender, EventArgs e)
     {
         _sessionContext.Clear();
-        this.Close();
-    }
-
-    private void button_view_Click(object sender, EventArgs e)
-    {
-        MessageBox.Show(_sessionContext.IsUser.ToString());
+        Invoke(new Action(() =>
+        {
+            this.Close();
+        }));
+        
     }
 
     private void HandleBuyTicket(object sender, EventArgs e)
@@ -194,5 +202,10 @@ public partial class UserDashboardForm : Form, Service.Observer.IObserver<Change
     public void SetScope(IServiceScope scope)
     {
         _scope = scope;
+    }
+
+    private void HandleViewMovies(object sender, EventArgs e)
+    {
+        _formManager.SwitchToForm<ViewMoviesForm>(this, FormBehavior.HideAndShowNext, false, _scope);
     }
 }

@@ -57,12 +57,12 @@ namespace Service
             return (List<Ticket>)(await _ticketRepository.GetUserTickets(id) ?? throw new ServiceException("No tickets found"));
         }
 
-        public async Task DeleteTicket(int ticketId, int seatId)
+        public async Task DeleteTicket(Ticket ticket)
         {
-            await _ticketRepository.DeleteAsync(ticketId);
+            await _ticketRepository.DeleteAsync(ticket.Id);
             _notifier.Notify(new ChangeEvent()
             {
-                Entity = new Ticket { Id = ticketId , Seat = new Seat { Id = seatId} },
+                Entity = ticket,
                 EventType = EventType.DELETE,
                 Message = "Ticket deleted"
             });
@@ -118,6 +118,27 @@ namespace Service
                 throw new ServiceException("Projection not found");
 
             return (await _projectionRepository.GetAllTakenSeatsFromProjection(projectionId) ?? null) as List<Seat>;
+        }
+
+        public async Task<List<Movie>> GetAllMovies(int cinemaId)
+        {
+            var movies = await _projectionRepository.GetAllMoviesByCinemaId(cinemaId);
+
+            if (movies == null)
+                throw new ServiceException("No movies found");
+
+            return movies;
+        }
+
+        public async Task AddProjection(Projection projection)
+        {
+            await _projectionRepository.AddAsync(projection);
+            _notifier.Notify(new ChangeEvent()
+            {
+                Entity = projection,
+                EventType = EventType.ADD,
+                Message = "Projection added"
+            });
         }
     }
 }

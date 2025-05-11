@@ -52,6 +52,7 @@ namespace CinemaApp.UI
             //services.AddScoped<AdminDashboardForm>();
             services.AddTransient<UserDashboardForm>();
             services.AddTransient<AdminDashboardForm>();
+            services.AddScoped<ViewMoviesForm>();
             services.AddScoped<BuyTicketForm>();
             services.AddScoped<LandingForm>();
             services.AddScoped<RegisterForm>();

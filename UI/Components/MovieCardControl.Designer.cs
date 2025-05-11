@@ -31,6 +31,7 @@
             labelMovieName = new Label();
             labelMovieDuration = new Label();
             labelMoviePrice = new Label();
+            labelDate = new Label();
             SuspendLayout();
             // 
             // labelMovieName
@@ -57,18 +58,30 @@
             // 
             // labelMoviePrice
             // 
+            labelMoviePrice.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             labelMoviePrice.AutoSize = true;
             labelMoviePrice.Font = new Font("Century Schoolbook", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 238);
             labelMoviePrice.Location = new Point(291, 62);
             labelMoviePrice.Name = "labelMoviePrice";
-            labelMoviePrice.Size = new Size(0, 21);
+            labelMoviePrice.Size = new Size(19, 21);
             labelMoviePrice.TabIndex = 2;
+            labelMoviePrice.Text = "s";
+            // 
+            // labelDate
+            // 
+            labelDate.AutoSize = true;
+            labelDate.Font = new Font("Century Schoolbook", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            labelDate.Location = new Point(23, 62);
+            labelDate.Name = "labelDate";
+            labelDate.Size = new Size(0, 21);
+            labelDate.TabIndex = 3;
             // 
             // MovieCardControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightGoldenrodYellow;
+            Controls.Add(labelDate);
             Controls.Add(labelMoviePrice);
             Controls.Add(labelMovieDuration);
             Controls.Add(labelMovieName);
@@ -84,5 +97,6 @@
         private Label labelMovieName;
         private Label labelMovieDuration;
         private Label labelMoviePrice;
+        private Label labelDate;
     }
 }

@@ -28,27 +28,55 @@ partial class AdminDashboardForm
     /// </summary>
     private void InitializeComponent()
     {
-        button1 = new Button();
+        button_managemovies = new Button();
+        button_managehalls = new Button();
+        button_manageprojections = new Button();
         SuspendLayout();
         // 
-        // button1
+        // button_managemovies
         // 
-        button1.Location = new Point(363, 287);
-        button1.Name = "button1";
-        button1.Size = new Size(94, 29);
-        button1.TabIndex = 0;
-        button1.Text = "button1";
-        button1.UseVisualStyleBackColor = true;
-        button1.Click += button1_Click;
+        button_managemovies.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+        button_managemovies.Location = new Point(137, 61);
+        button_managemovies.Name = "button_managemovies";
+        button_managemovies.Size = new Size(199, 67);
+        button_managemovies.TabIndex = 0;
+        button_managemovies.Text = "Manage Movies";
+        button_managemovies.UseVisualStyleBackColor = true;
+        button_managemovies.Click += HandleManageMovies;
+        // 
+        // button_managehalls
+        // 
+        button_managehalls.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+        button_managehalls.Location = new Point(137, 183);
+        button_managehalls.Name = "button_managehalls";
+        button_managehalls.Size = new Size(199, 67);
+        button_managehalls.TabIndex = 1;
+        button_managehalls.Text = "Manage Halls";
+        button_managehalls.UseVisualStyleBackColor = true;
+        button_managehalls.Click += HandleManageHalls;
+        // 
+        // button_manageprojections
+        // 
+        button_manageprojections.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+        button_manageprojections.Location = new Point(137, 308);
+        button_manageprojections.Name = "button_manageprojections";
+        button_manageprojections.Size = new Size(199, 67);
+        button_manageprojections.TabIndex = 2;
+        button_manageprojections.Text = "Manage Projections";
+        button_manageprojections.UseVisualStyleBackColor = true;
+        button_manageprojections.Click += HandleManageProjections;
         // 
         // AdminDashboardForm
         // 
         AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(994, 590);
-        Controls.Add(button1);
+        ClientSize = new Size(482, 416);
+        Controls.Add(button_manageprojections);
+        Controls.Add(button_managehalls);
+        Controls.Add(button_managemovies);
         FormBorderStyle = FormBorderStyle.FixedSingle;
         Name = "AdminDashboardForm";
+        StartPosition = FormStartPosition.CenterParent;
         Text = "AdminLandingForm";
         Load += AdminDashboardForm_Load;
         ResumeLayout(false);
@@ -56,5 +84,7 @@ partial class AdminDashboardForm
 
     #endregion
 
-    private Button button1;
+    private Button button_managemovies;
+    private Button button_managehalls;
+    private Button button_manageprojections;
 }

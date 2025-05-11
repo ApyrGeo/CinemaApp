@@ -110,6 +110,8 @@ namespace CinemaApp.UI.UserForms
         {
             Projection? p = cb_projections.SelectedItem as Projection;
 
+            panelControls.Controls.Clear();
+
             tb_hallname.Text = p?.Hall.Name;
             tb_moviename.Text = p?.Movie.Name;
             tb_price.Text = p?.Movie.Price.ToString();
@@ -236,7 +238,8 @@ namespace CinemaApp.UI.UserForms
                     {
                         Projection? p = cb_projections.SelectedItem as Projection;
                         if (p == null) break;
-                        ChangeSeatStatus(ticket.Seat.Id);
+                        if (ticket.ProjectionId != p.Id) break;
+                        ChangeSeatStatus(ticket.SeatId);
                     }
                     
                     

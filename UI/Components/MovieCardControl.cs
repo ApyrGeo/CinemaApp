@@ -28,6 +28,11 @@ namespace CinemaApp.UI.Components
             get => labelMoviePrice.Text;
             set => labelMoviePrice.Text = "Price " + value + " RON";
         }
+        public string Date { 
+            get => labelDate.Text;
+            set => labelDate.Text = "Date: " + value;
+        }
+
         public MovieCardControl()
         {
             InitializeComponent();

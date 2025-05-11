@@ -51,4 +51,32 @@ public partial class RegisterForm : Form
             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
+
+    private void RegisterForm_Load(object sender, EventArgs e)
+    {
+        this.BackColor = Design.Colors.Tertiary;
+        button1.BackColor = Design.Colors.Primary;
+        button1.ForeColor = Design.Colors.Tertiary;
+        button1.MouseHover += CustomEvents.ButtonHoverEnter!;
+        button1.MouseLeave += CustomEvents.ButtonHoverLeave!;
+
+        label4.BackColor = Design.Colors.Tertiary;
+        label4.ForeColor = Design.Colors.Primary;
+        label4.MouseHover += CustomEvents.ButtonHoverEnter!;
+        label4.MouseLeave += CustomEvents.ButtonHoverLeave!;
+
+        tb_uname.BackColor = Design.Colors.Tertiary;
+        tb_uname.ForeColor = Design.Colors.Primary;
+
+        tb_pass.BackColor = Design.Colors.Tertiary;
+        tb_pass.ForeColor = Design.Colors.Primary;
+
+        tb_cpass.BackColor = Design.Colors.Tertiary;
+        tb_cpass.ForeColor = Design.Colors.Primary;
+
+        label1.ForeColor = Design.Colors.Primary;
+        label2.ForeColor = Design.Colors.Primary;
+        label3.ForeColor = Design.Colors.Primary;
+        label4.ForeColor = Design.Colors.Primary;
+    }
 }
