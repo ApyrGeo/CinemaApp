@@ -5,7 +5,7 @@ namespace CinemaApp.Service;
 public interface IUserService
 {
     Task AddProjection(Projection projection);
-    Task AddTicket(DateTime date, int? id_proj, int? id_seat, int? id_user);
+    Task<Ticket> AddTicket(DateTime date, int? id_proj, int? id_seat, int? id_user);
     Task DeleteTicket(Ticket ticket);
     Task<List<Movie>> GetAllMovies();
     Task<List<Movie>> GetAllMovies(int cinemaId);

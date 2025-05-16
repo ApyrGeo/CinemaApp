@@ -31,6 +31,7 @@ partial class AdminDashboardForm
         button_managemovies = new Button();
         button_managehalls = new Button();
         button_manageprojections = new Button();
+        btn_validate = new Button();
         SuspendLayout();
         // 
         // button_managemovies
@@ -66,17 +67,29 @@ partial class AdminDashboardForm
         button_manageprojections.UseVisualStyleBackColor = true;
         button_manageprojections.Click += HandleManageProjections;
         // 
+        // btn_validate
+        // 
+        btn_validate.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+        btn_validate.Location = new Point(137, 420);
+        btn_validate.Name = "btn_validate";
+        btn_validate.Size = new Size(199, 67);
+        btn_validate.TabIndex = 3;
+        btn_validate.Text = "Validate Code";
+        btn_validate.UseVisualStyleBackColor = true;
+        btn_validate.Click += HandleScanCode;
+        // 
         // AdminDashboardForm
         // 
         AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(482, 416);
+        ClientSize = new Size(482, 499);
+        Controls.Add(btn_validate);
         Controls.Add(button_manageprojections);
         Controls.Add(button_managehalls);
         Controls.Add(button_managemovies);
         FormBorderStyle = FormBorderStyle.FixedSingle;
         Name = "AdminDashboardForm";
-        StartPosition = FormStartPosition.CenterParent;
+        StartPosition = FormStartPosition.CenterScreen;
         Text = "AdminLandingForm";
         Load += AdminDashboardForm_Load;
         ResumeLayout(false);
@@ -87,4 +100,5 @@ partial class AdminDashboardForm
     private Button button_managemovies;
     private Button button_managehalls;
     private Button button_manageprojections;
+    private Button btn_validate;
 }

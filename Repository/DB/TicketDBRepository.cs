@@ -70,5 +70,21 @@ namespace CinemaApp.Repository.DB
 
             return tickets;
         }
+
+        public async Task<IEnumerable<Seat>> GetTakenSeatsByHall(int id)
+        {
+            return await _dbContext.Tickets
+                .Where(t => t.Projection.HallId == id)
+                .Select(t => t.Seat)
+                .ToListAsync();
+
+        }
+
+        public Task<Ticket> AddWithReturnAsync(Ticket ticket)
+        {
+            _dbContext.Tickets.Add(ticket);
+            _dbContext.SaveChanges();
+            return Task.FromResult(ticket);
+        }
     }
 }

@@ -10,6 +10,8 @@ namespace CinemaApp.Repository
 {
     public interface ITicketRepository : IRepository<Ticket>
     {
+        Task<Ticket> AddWithReturnAsync(Ticket ticket);
+        Task<IEnumerable<Seat>> GetTakenSeatsByHall(int id);
         Task<IEnumerable<Ticket>> GetUserTickets(int id);
     }
 }

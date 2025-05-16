@@ -3,6 +3,8 @@ using CinemaApp.Service;
 using CinemaApp.Service.Observer;
 using CinemaApp.UI.Components;
 using CinemaApp.UI.Manager;
+using CinemaApp.UI.Utils;
+using CinemaAPp.UI.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -22,13 +24,15 @@ namespace CinemaApp.UI.UserForms
         private readonly IUserService _userService;
         private readonly CinemaContext _cinemaContext;
         private IServiceScope _scope;
+        private readonly Notifier _notifier;
 
         private Button _currentButton;
 
-        public BuyTicketForm(IUserService userService, CinemaContext cinemaContext)
+        public BuyTicketForm(IUserService userService, CinemaContext cinemaContext, Notifier notifier)
         {
             _userService = userService;
             _cinemaContext = cinemaContext;
+            _notifier = notifier;
 
             InitializeComponent();
             this.FormClosing += CustomEvents.FormClosing;
@@ -205,7 +209,7 @@ namespace CinemaApp.UI.UserForms
                 if (tb_seatname.Tag == null)
                     throw new Exception("Seat not selected!");
 
-                await _userService.AddTicket(
+                Ticket t = await _userService.AddTicket(
                         DateTime.Now,
                         ((Projection)cb_projections.SelectedItem).Id,
                         ((Seat)tb_seatname.Tag).Id,
@@ -214,12 +218,32 @@ namespace CinemaApp.UI.UserForms
 
                 MessageBox.Show("Ticket bought");
 
+                ShowGeneratedQR(t);
+
                 this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 return;
+            }
+        }
+
+        private void ShowGeneratedQR(Ticket t)
+        {
+            string json = JsonParser.SerializeTicket(t);
+            Bitmap qrCode = QRCodeHelper.EncodeToQRCode(json);
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "PNG Image|*.png",
+                Title = "Save QR Code",
+                FileName = $"ticketQR.png"
+            };
+            saveFileDialog.ShowDialog();
+            if (saveFileDialog.FileName != "")
+            {
+                qrCode.Save(saveFileDialog.FileName);
             }
         }
 
@@ -237,8 +261,8 @@ namespace CinemaApp.UI.UserForms
                     if (data.EventType == EventType.DELETE || data.EventType == EventType.ADD)
                     {
                         Projection? p = cb_projections.SelectedItem as Projection;
-                        if (p == null) break;
                         if (ticket.ProjectionId != p.Id) break;
+                        if (p == null) break;
                         ChangeSeatStatus(ticket.SeatId);
                     }
                     

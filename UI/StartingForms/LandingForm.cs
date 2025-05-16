@@ -13,22 +13,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CinemaApp.UI.Components;
+using CinemaApp.Service.Observer;
 
 namespace CinemaApp.UI;
 
-public partial class LandingForm : Form
+public partial class LandingForm : Form, Service.Observer.IObserver<ChangeEvent>
 {
     private readonly IUserService _userService;
     private readonly FormManager _formManager;
-    public LandingForm(IUserService userService, FormManager formManager)
+    private readonly Notifier _notifier;
+    public LandingForm(IUserService userService, FormManager formManager, Notifier notifier)
     {
         _userService = userService;
         _formManager = formManager;
+        _notifier = notifier;
         InitializeComponent();
 
         this.FormClosing += CustomEvents.FormClosing!;
 
         LoadMovieCards();
+        _notifier.Subscribe(this);
     }
 
     private void LandingForm_Load(object sender, EventArgs e)
@@ -66,4 +70,31 @@ public partial class LandingForm : Form
 
     }
 
+    public void Update(ChangeEvent data)
+    {
+        if (InvokeRequired)
+        {
+            Invoke(new Action(() => Update(data)));
+            return;
+        }
+
+        switch (data.Entity)
+        {
+            case Movie movie:
+                if (data.EventType == EventType.ADD)
+                {
+                    MovieCardControl card = new()
+                    {
+                        Name = movie.Name,
+                        Duration = movie.Duration.ToString(),
+                        Width = panelContainer.Width - 20,
+                        Margin = new Padding(10)
+                    };
+
+                    Invoke(new Action(() => panelContainer.Controls.Add(card)));
+                    
+                }
+                break;
+        }
+    }
 }

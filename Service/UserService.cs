@@ -78,7 +78,7 @@ namespace Service
             return (List<Seat>)(await _seatRepository.GetByHallAsync(hallId) ?? throw new ServiceException("No seats found"));
         }
 
-        public async Task AddTicket(DateTime date, int? id_proj, int? id_seat, int? id_user)
+        public async Task<Ticket> AddTicket(DateTime date, int? id_proj, int? id_seat, int? id_user)
         {
             if (id_proj == null)
                 throw new ServiceException("Projection not found");
@@ -94,11 +94,12 @@ namespace Service
                 BuyDate = date,
                 ProjectionId = (int)id_proj,
                 SeatId = (int)id_seat,
-                UserId = (int)id_user
-
+                UserId = (int)id_user,
+                Code = Guid.NewGuid().ToString()
             };
 
-            await _ticketRepository.AddAsync(ticket);
+
+            Ticket t = await _ticketRepository.AddWithReturnAsync(ticket);
 
            
 
@@ -109,7 +110,7 @@ namespace Service
                 Message = "Ticket added"
             }) ;
 
-            
+            return t;
         }
 
         public async Task<List<Seat>?> GetAllTakenSeatsFromProjection(int? projectionId)

@@ -44,6 +44,7 @@ namespace CinemaApp.UI
             services.AddScoped<IProjectionRepository, ProjectionDBRepository>();
             services.AddScoped<ICinemaRepository, CinemaDBRepository>();
             services.AddScoped<ISeatRepository, SeatDBRepository>();
+            services.AddScoped<IHallRepository, HallDBRepository>();
             services.AddScoped<SessionContext>();
 
             // Forms
@@ -56,6 +57,8 @@ namespace CinemaApp.UI
             services.AddScoped<BuyTicketForm>();
             services.AddScoped<LandingForm>();
             services.AddScoped<RegisterForm>();
+            services.AddScoped<ManageMoviesForm>();
+            services.AddScoped<ManageHallsForm>();
             ///Add future forms
 
             // Singleton FormManager

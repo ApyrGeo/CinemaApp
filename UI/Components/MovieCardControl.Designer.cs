@@ -63,9 +63,8 @@
             labelMoviePrice.Font = new Font("Century Schoolbook", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 238);
             labelMoviePrice.Location = new Point(291, 62);
             labelMoviePrice.Name = "labelMoviePrice";
-            labelMoviePrice.Size = new Size(19, 21);
+            labelMoviePrice.Size = new Size(0, 21);
             labelMoviePrice.TabIndex = 2;
-            labelMoviePrice.Text = "s";
             // 
             // labelDate
             // 

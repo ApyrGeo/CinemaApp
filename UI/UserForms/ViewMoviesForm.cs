@@ -18,18 +18,16 @@ namespace CinemaApp.UI.UserForms
     public partial class ViewMoviesForm : Form, Service.Observer.IObserver<ChangeEvent>
     {
         private readonly IUserService _userService;
-        private readonly Notifier _notifier;
         private SessionContext _sessionContext;
         private CinemaContext _cinemaContext;
-        public ViewMoviesForm(IUserService userService, CinemaContext cinemaContext, Notifier notifier)
+        public ViewMoviesForm(IUserService userService, CinemaContext cinemaContext)
         {
             InitializeComponent();
 
             _userService = userService;
             _cinemaContext = cinemaContext;
-            _notifier = notifier;
             this.FormClosing += CustomEvents.FormClosing;
-            _notifier.Subscribe(this);
+
         }
 
         private void ViewMoviesForm_Load(object sender, EventArgs e)

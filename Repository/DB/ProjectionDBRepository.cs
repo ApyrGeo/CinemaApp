@@ -82,5 +82,14 @@ namespace CinemaApp.Repository.DB
                 .Where(m => m.Projections.Any(p => p.Hall.CinemaId == cinemaId))
                 .ToListAsync();
         }
+
+        public Task<List<Projection>> GetProjectionsByHallId(int id)
+        {
+            return _dbContext.Projections
+                .Include(p => p.Movie)
+                .Include(p => p.Hall)
+                .Where(p => p.HallId == id)
+                .ToListAsync();
+        }
     }
 }

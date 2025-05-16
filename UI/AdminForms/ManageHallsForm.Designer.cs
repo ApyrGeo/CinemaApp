@@ -1,6 +1,6 @@
-﻿namespace CinemaApp.UI.UserForms
+﻿namespace CinemaApp.UI.AdminForms
 {
-    partial class ViewMoviesForm
+    partial class ManageHallsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,60 +29,63 @@
         private void InitializeComponent()
         {
             panelComponents = new FlowLayoutPanel();
-            panel1 = new Panel();
             label1 = new Label();
-            panel1.SuspendLayout();
+            btn_add_hall = new Button();
             SuspendLayout();
             // 
             // panelComponents
             // 
             panelComponents.Dock = DockStyle.Bottom;
-            panelComponents.Location = new Point(0, 67);
+            panelComponents.Location = new Point(0, 95);
             panelComponents.Name = "panelComponents";
-            panelComponents.Size = new Size(1098, 461);
+            panelComponents.Size = new Size(816, 415);
             panelComponents.TabIndex = 0;
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(label1);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1098, 528);
-            panel1.TabIndex = 1;
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 238);
-            label1.Location = new Point(413, 9);
+            label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            label1.Location = new Point(312, 9);
             label1.Name = "label1";
-            label1.Size = new Size(262, 41);
-            label1.TabIndex = 0;
-            label1.Text = "Available movies";
+            label1.Size = new Size(202, 41);
+            label1.TabIndex = 1;
+            label1.Text = "ManageHalls";
             // 
-            // ViewMoviesForm
+            // btn_add_hall
+            // 
+            btn_add_hall.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btn_add_hall.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            btn_add_hall.Location = new Point(689, 9);
+            btn_add_hall.Name = "btn_add_hall";
+            btn_add_hall.Size = new Size(115, 67);
+            btn_add_hall.TabIndex = 2;
+            btn_add_hall.Text = "Add new hall";
+            btn_add_hall.UseVisualStyleBackColor = true;
+            btn_add_hall.Click += HandleAddHall;
+            // 
+            // ManageHallsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1098, 528);
+            ClientSize = new Size(816, 510);
+            Controls.Add(btn_add_hall);
+            Controls.Add(label1);
             Controls.Add(panelComponents);
-            Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Name = "ViewMoviesForm";
+            Name = "ManageHallsForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "ViewMoviesForm";
-            Load += ViewMoviesForm_Load;
-            Shown += ViewMoviesForm_Shown;
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            Text = "ManageHallsForm";
+            Load += ManageHallsForm_Load;
+            Shown += ManageHallsForm_Shown;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private FlowLayoutPanel panelComponents;
-        private Panel panel1;
         private Label label1;
+        private Button btn_add_hall;
     }
 }
